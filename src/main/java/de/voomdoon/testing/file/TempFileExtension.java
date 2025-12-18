@@ -69,13 +69,13 @@ import org.junit.jupiter.api.extension.ParameterResolver;
  * <p>
  * <strong>Special behavior (like file name extensions or directory creation) can be configured using the following
  * annotations:</strong>
+ * </p>
  * <ul>
  * <li>{@link WithTempInputFiles}</li>
  * <li>{@link WithTempInputDirectories}</li>
  * <li>{@link WithTempOutputFiles}</li>
  * <li>{@link WithTempOutputDirectories}</li>
  * </ul>
- * </p>
  *
  * <p>
  * Directory structure:
