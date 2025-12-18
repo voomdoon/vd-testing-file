@@ -44,7 +44,7 @@ class TempOutputDirectoryTest {
 			 * @since 0.1.0
 			 */
 			@Test
-			void test_directoryDoesNotExists(@TempOutputDirectory File directory) throws Exception {
+			void test_directoryDoesNotExists(@TempOutputDirectory File directory) {
 				assertThat(directory).doesNotExist();
 			}
 		}
@@ -65,7 +65,7 @@ class TempOutputDirectoryTest {
 			 * @since 0.1.0
 			 */
 			@Test
-			void test_directoryExists(@TempOutputDirectory File directory) throws Exception {
+			void test_directoryExists(@TempOutputDirectory File directory) {
 				assertThat(directory).exists();
 			}
 		}
@@ -85,7 +85,7 @@ class TempOutputDirectoryTest {
 	 */
 	@Test
 	void test_parentIsNamedOutput(@TempOutputDirectory File directory) {
-		assertThat(directory.getParentFile().getName()).isEqualTo("output");
+		assertThat(directory.getParentFile()).hasName("output");
 	}
 
 	/**

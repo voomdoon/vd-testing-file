@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
@@ -23,15 +24,16 @@ class TempFileTest {
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_File(@TempFile File file) throws Exception {
+	void test_File(@TempFile File file) {
 		assertThat(file).isNotNull();
 	}
 
 	/**
+	 * @throws IOException
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_File_canBeCreated(@TempFile File file) throws Exception {
+	void test_File_canBeCreated(@TempFile File file) throws IOException {
 		boolean success = file.createNewFile();
 
 		assertThat(success).isTrue();
@@ -41,7 +43,7 @@ class TempFileTest {
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_File_isNotCreated(@TempFile File file) throws Exception {
+	void test_File_isNotCreated(@TempFile File file) {
 		assumeThat(file).isNotNull();
 
 		assertThat(file).doesNotExist();
@@ -51,7 +53,7 @@ class TempFileTest {
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_File_twoAreDifferent(@TempFile File file1, @TempFile File file2) throws Exception {
+	void test_File_twoAreDifferent(@TempFile File file1, @TempFile File file2) {
 		assertThat(file1).isNotEqualTo(file2);
 	}
 
@@ -59,7 +61,7 @@ class TempFileTest {
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_Path(@TempFile Path path) throws Exception {
+	void test_Path(@TempFile Path path) {
 		assertThat(path).isNotNull();
 	}
 
@@ -67,7 +69,7 @@ class TempFileTest {
 	 * @since 0.1.0
 	 */
 	@Test
-	void test_Path(@TempFile String string) throws Exception {
+	void test_Path(@TempFile String string) {
 		assertThat(string).endsWith(".tmp");
 	}
 }

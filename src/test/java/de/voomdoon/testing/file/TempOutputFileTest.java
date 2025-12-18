@@ -45,7 +45,7 @@ class TempOutputFileTest {
 			 * @since 0.1.0
 			 */
 			@Test
-			void test_File_hasConfiguredExtension(@TempOutputFile File file) throws Exception {
+			void test_File_hasConfiguredExtension(@TempOutputFile File file) {
 				assertThat(file.getName()).endsWith(".txt");
 			}
 		}

@@ -102,7 +102,7 @@ class TempFileExtensionTest {
 
 			List<Path> trackedFiles = new ArrayList<>();
 
-			when(store.get(eq(TempFileExtension.STORE_KEY_ROOT), eq(List.class))).thenReturn(trackedFiles);
+			when(store.get(TempFileExtension.STORE_KEY_ROOT, List.class)).thenReturn(trackedFiles);
 			when(store.computeIfAbsent(eq(TempFileExtension.STORE_KEY_ROOT), any(), eq(List.class)))
 					.thenReturn(trackedFiles);
 
@@ -210,18 +210,15 @@ class TempFileExtensionTest {
 		 *            {@link File}
 		 * @param tempOutputFile
 		 *            {@link File}
-		 * @throws Exception
 		 * @since 0.1.0
 		 */
 		@Test
 		void testTempFileAndTempInputFileANDTempOutputFile(@TempFile File tempfile, @TempInputFile File tempInputFile,
-				@TempOutputFile File tempOutputFile) throws Exception {
+				@TempOutputFile File tempOutputFile) {
 			assertThat(tempfile).isNotNull();
 
-			assertThat(tempInputFile).isNotNull();
 			assertThat(tempInputFile).isNotEqualTo(tempfile);
 
-			assertThat(tempOutputFile).isNotNull();
 			assertThat(tempOutputFile).isNotEqualTo(tempfile);
 		}
 	}
