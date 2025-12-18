@@ -15,7 +15,7 @@
 	<version>0.1.0-SNAPSHOT</version>
 
 	<name>vd-testing-file</name>
-	<description>testing frameforn for files</description>
+	<description>testing framework for files</description>
     <url>https://github.com/voomdoon/vd-testing-file</url>
 
 	<scm>

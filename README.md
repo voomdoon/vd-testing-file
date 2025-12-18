@@ -1,3 +1,3 @@
 # vd-testing-file
 
-testing frameforn for files
+testing framework for files
