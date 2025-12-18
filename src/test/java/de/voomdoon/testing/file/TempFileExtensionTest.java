@@ -47,6 +47,7 @@ class TempFileExtensionTest {
 		 * @since 0.1.0
 		 */
 		public void dummyMethod(@TempFile File file) {
+			// empty
 		}
 
 		/**
@@ -66,7 +67,7 @@ class TempFileExtensionTest {
 
 			List<Path> trackedFiles = new ArrayList<>();
 
-			when(store.get(eq(TempFileExtension.STORE_KEY_ROOT), eq(List.class))).thenReturn(trackedFiles);
+			when(store.get(TempFileExtension.STORE_KEY_ROOT, List.class)).thenReturn(trackedFiles);
 			when(store.computeIfAbsent(eq(TempFileExtension.STORE_KEY_ROOT), any(), eq(List.class)))
 					.thenReturn(trackedFiles);
 
