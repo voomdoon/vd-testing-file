@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.voomdoon</groupId>
+		<artifactId>vd-parent</artifactId>
+		<version>0.2.3</version>
+		<relativePath />
+	</parent>
+
+	<groupId>de.voomdoon.testing</groupId>
+	<artifactId>vd-testing-file</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+
+	<name>vd-testing-file</name>
+	<description>testing frameforn for files</description>
+    <url>https://github.com/voomdoon/vd-testing-file</url>
+
+	<scm>
+		<url>https://github.com/voomdoon/vd-testing-file</url>
+		<connection>scm:git:https://github.com/voomdoon/vd-testing-file.git</connection>
+		<developerConnection>scm:git:git@github.com:voomdoon/vd-testing-file.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<properties>
+		<skipTestJar>false</skipTestJar>
+	</properties>
+</project>
