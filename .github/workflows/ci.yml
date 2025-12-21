@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,7 +28,7 @@ jobs:
         run: mvn -B -Pci clean verify
 
       - name: Cache SonarCloud packages
-        if: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ env.SONAR_TOKEN }}
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
@@ -32,10 +36,10 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarCloud analysis (only when token available)
-        if: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ env.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
         run: |
           mvn -B -Pci \
             org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
