@@ -17,11 +17,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 21
+      - name: Detect Java version from Maven (java.version)
+        id: java
+        run: |
+          JAVA_VERSION=$(mvn -q -N -DforceStdout help:evaluate -Dexpression=java.version)
+          if [ -z "$JAVA_VERSION" ] || [ "$JAVA_VERSION" = "null" ]; then
+            echo "Could not determine java.version from pom.xml (got '$JAVA_VERSION')." >&2
+            exit 1
+          fi
+          echo "Detected Java version: $JAVA_VERSION"
+          echo "version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Set up JDK
         uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: ${{ steps.java.outputs.version }}
           cache: maven
 
       - name: Build & test (always)
