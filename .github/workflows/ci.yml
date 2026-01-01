@@ -22,14 +22,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           get_prop() {
             mvn -q -N -DforceStdout help:evaluate -Dexpression="$1" 2>/dev/null | tr -d '\r' | xargs || true
           }
-          for expr in \
-            project.properties.java.version \
-            "project.properties.'maven.compiler.release'" \
-            "project.properties.'maven.compiler.source'"
-          do
+
+          PROPS=(
+            "project.properties['java.version']"
+            "project.properties['maven.compiler.release']"
+            "project.properties['maven.compiler.source']"
+          )
+
+          for expr in "${PROPS[@]}"; do
             v=$(get_prop "$expr")
             if [[ -n "$v" && "$v" != "null" && "$v" != *'${'* ]]; then
               echo "Detected Java version from $expr: $v"
@@ -37,7 +41,8 @@ jobs:
               exit 0
             fi
           done
-          echo "Could not determine Java version from pom.xml. Expected one of: java.version, maven.compiler.release, maven.compiler.source" >&2
+
+          echo "Could not determine Java version from pom.xml. Expected one of: <properties><java.version>, <properties><maven.compiler.release>, <properties><maven.compiler.source>" >&2
           exit 1
 
       - name: Set up JDK
