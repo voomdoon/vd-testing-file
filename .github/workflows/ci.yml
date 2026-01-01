@@ -17,16 +17,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Detect Java version from Maven (java.version)
+      - name: Detect Java version from Maven POM
         id: java
+        shell: bash
         run: |
-          JAVA_VERSION=$(mvn -q -N -DforceStdout help:evaluate -Dexpression=java.version)
-          if [ -z "$JAVA_VERSION" ] || [ "$JAVA_VERSION" = "null" ]; then
-            echo "Could not determine java.version from pom.xml (got '$JAVA_VERSION')." >&2
-            exit 1
-          fi
-          echo "Detected Java version: $JAVA_VERSION"
-          echo "version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          get_prop() {
+            mvn -q -N -DforceStdout help:evaluate -Dexpression="$1" 2>/dev/null | tr -d '\r' | xargs || true
+          }
+          for expr in \
+            project.properties.java.version \
+            "project.properties.'maven.compiler.release'" \
+            "project.properties.'maven.compiler.source'"
+          do
+            v=$(get_prop "$expr")
+            if [[ -n "$v" && "$v" != "null" && "$v" != *'${'* ]]; then
+              echo "Detected Java version from $expr: $v"
+              echo "version=$v" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+          echo "Could not determine Java version from pom.xml. Expected one of: java.version, maven.compiler.release, maven.compiler.source" >&2
+          exit 1
 
       - name: Set up JDK
         uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
