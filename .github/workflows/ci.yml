@@ -23,27 +23,19 @@ jobs:
         run: |
           set -euo pipefail
 
-          get_prop() {
-            mvn -q -N -DforceStdout help:evaluate -Dexpression="$1" 2>/dev/null | tr -d '\r' | xargs || true
-          }
+          RAW=$(mvn -q -N -DforceStdout help:evaluate -Dexpression=maven.compiler.target 2>/dev/null \
+            | tr -d '\r' \
+            | awk 'NF{last=$0} END{print last}')
 
-          PROPS=(
-            "project.properties['java.version']"
-            "project.properties['maven.compiler.release']"
-            "project.properties['maven.compiler.source']"
-          )
+          MAJOR="${RAW%%.*}"
 
-          for expr in "${PROPS[@]}"; do
-            v=$(get_prop "$expr")
-            if [[ -n "$v" && "$v" != "null" && "$v" != *'${'* ]]; then
-              echo "Detected Java version from $expr: $v"
-              echo "version=$v" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          done
+          if [[ ! "$MAJOR" =~ ^[0-9]+$ ]]; then
+            echo "Could not determine Java version from maven.compiler.target (got '$RAW')" >&2
+            exit 1
+          fi
 
-          echo "Could not determine Java version from pom.xml. Expected one of: <properties><java.version>, <properties><maven.compiler.release>, <properties><maven.compiler.source>" >&2
-          exit 1
+          echo "Detected Java version from maven.compiler.target: $MAJOR"
+          echo "version=$MAJOR" >> "$GITHUB_OUTPUT"
 
       - name: Set up JDK
         uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
