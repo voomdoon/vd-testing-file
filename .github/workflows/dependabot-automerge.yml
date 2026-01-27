@@ -53,7 +53,7 @@ jobs:
           fi
 
           # allow: github-actions minor (and patch already covered above)
-          if [ "$ECO" = "github-actions" ] && [ "$UPDATE_TYPE" = "version-update:semver-minor" ]; then
+          if [ "$ECO" = "github_actions" ] && [ "$UPDATE_TYPE" = "version-update:semver-minor" ]; then
             SHOULD="true"
           fi
 
