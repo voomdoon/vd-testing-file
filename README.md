@@ -1,8 +1,8 @@
 # vd-testing-file
 
 [![CI](https://github.com/voomdoon/vd-testing-file/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/voomdoon/vd-testing-file/actions/workflows/ci.yml?query=branch%3Amain)
-[![CodeQL Advanced](https://github.com/voomdoon/vd-testing-file/actions/workflows/codeql.yml/badge.svg)](https://github.com/voomdoon/vd-testing-file/actions/workflows/codeql.yml)
 [![Trivy](https://github.com/voomdoon/vd-testing-file/actions/workflows/trivy.yml/badge.svg)](https://github.com/voomdoon/vd-testing-file/actions/workflows/trivy.yml)
+[![CodeQL Advanced](https://github.com/voomdoon/vd-testing-file/actions/workflows/codeql.yml/badge.svg)](https://github.com/voomdoon/vd-testing-file/actions/workflows/codeql.yml)
 [![License](https://img.shields.io/github/license/voomdoon/vd-testing-file)](https://github.com/voomdoon/vd-testing-file/blob/main/LICENSE)
 [![Java](https://img.shields.io/badge/Java-21-blue)](https://adoptium.net/)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=voomdoon_vd-testing-file&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=voomdoon_vd-testing-file)
