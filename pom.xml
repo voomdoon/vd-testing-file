@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.voomdoon</groupId>
 		<artifactId>vd-parent</artifactId>
-		<version>0.2.3</version>
+		<version>0.2.4</version>
 		<relativePath />
 	</parent>
 
@@ -25,6 +25,7 @@
 
 	<properties>
 		<skipTestJar>false</skipTestJar>
+		<mockito.agent.argLine>-javaagent:${org.mockito:mockito-core:jar}</mockito.agent.argLine>
 	</properties>
 	
 	<dependencies>
