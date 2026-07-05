@@ -17,6 +17,8 @@ import java.lang.annotation.Target;
 public @interface WithTempOutputDirectories {
 
 	/**
+	 * Determines whether output directories are created automatically.
+	 *
 	 * @return {@code true} results in creation of the directory
 	 * @since 0.1.0
 	 */

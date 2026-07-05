@@ -111,6 +111,12 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 public class TempFileExtension implements ParameterResolver, AfterEachCallback {
 
 	/**
+	 * Creates an extension using the default temporary directory.
+	 */
+	public TempFileExtension() {
+	}
+
+	/**
 	 *
 	 * @author André Schulz
 	 *
@@ -157,6 +163,9 @@ public class TempFileExtension implements ParameterResolver, AfterEachCallback {
 		}
 	}
 
+	/**
+	 * Root key used for temporary files in the extension store.
+	 */
 	public static final String STORE_KEY_ROOT = "temp-files";
 
 	/**
