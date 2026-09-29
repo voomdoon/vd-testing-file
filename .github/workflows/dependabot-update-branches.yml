@@ -57,8 +57,14 @@ jobs:
               continue
             fi
 
-            pr_json="$(gh api "/repos/$repo/pulls/$number")"
-            mergeable_state="$(echo "$pr_json" | jq -r '.mergeable_state // "unknown"')"
+            # GitHub computes mergeable_state lazily; the first read after a push is often "unknown"
+            for attempt in 1 2 3 4 5; do
+              pr_json="$(gh api "/repos/$repo/pulls/$number")"
+              mergeable_state="$(echo "$pr_json" | jq -r '.mergeable_state // "unknown"')"
+              [ "$mergeable_state" != "unknown" ] && break
+              echo "PR #$number mergeable state is unknown (attempt: $attempt) => retrying"
+              sleep 3
+            done
 
             if [ "$mergeable_state" != "behind" ]; then
               echo "Skipping PR #$number branch $branch with mergeable state $mergeable_state."
